@@ -190,6 +190,7 @@ public class ArrayOfArrays {
 }
 ```
 ## Lab03
+[link to code](https://github.com/egconley/java-fundamentals/tree/master/basiclibrary/linter/src)
 
 ### Files
 * basiclibrary
