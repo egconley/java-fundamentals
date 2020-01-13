@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class RollTest {
     @Test
-    public void insertShiftArray() {
+    public void testRoll() {
         Roll test1 = new Roll();
         //Roll test2 = new Roll();
 
