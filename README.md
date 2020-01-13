@@ -1,6 +1,11 @@
 # java-fundamentals
 First several labs of Java 401
 
+## Table of Contents
+- Lab 01 
+- Lab 02
+- Lab 03
+
 ## Lab01
 
 ### Files
