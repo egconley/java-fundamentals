@@ -189,3 +189,143 @@ public class ArrayOfArrays {
     }
 }
 ```
+## Lab03
+
+### Files
+* basiclibrary
+  - linter
+    - src
+      - main
+        - java/linter
+          - App.java
+        - resources
+          - gates.js
+      - test
+        - java/linter
+          - AppTest.java
+        - resources
+          - empty.js
+          - test1.js
+          - test2.js
+          - test3.js
+
+### Methods
+
+#### Analyzing Weather Data - accepts 2-dimensional array of temperatures, finds max and min temp, returns Sting reporting high temp, low temp, plus any temperature not seen during the month.
+```
+public String analyzeWeatherData(int[][] data) {
+
+        //Use the October Seattle weather data above.
+        // Iterate through all of the data to find the min and max values.
+        int minTemp = 500;
+        int maxTemp = 0;
+
+        // Use a HashSet of type Integer to keep track of all the unique temperatures seen.
+        HashSet<Integer> temps = new HashSet<>();
+
+        for (int i=0; i < data.length; i++) {
+            for (int j=0; j < data[i].length; j++) {
+
+                temps.add(data[i][j]);
+
+                if (data[i][j] > maxTemp) {
+                    maxTemp = data[i][j];
+                }
+                if (data[i][j] < minTemp) {
+                    minTemp = data[i][j];
+                }
+            }
+        }
+
+        //System.out.println("High: " + maxTemp);
+        //System.out.println("Low: " + minTemp);
+
+        String returnString = "High: " + maxTemp + "\n" + "Low: " + minTemp + "\n";
+
+        // Finally, iterate from the min temp to the max temp and
+        // create a String containing any temperature not seen during the month.
+        for (int i=minTemp; i<=maxTemp; i++) {
+            if (!temps.contains(i)) {
+                //System.out.println("Never saw temperature: " + i);
+                returnString += "Never saw temperature: " + i + "\n";
+            }
+        }
+
+        // Return that String.
+        return returnString;
+    }
+```
+#### Tallying Election - accepts a List of Strings representing votes and returns one string to show what got the most votes.
+```
+public static String tally(List<String> votes) {
+        String winner = "test";
+        HashMap<String, Integer> votesByCandidate = new HashMap<>();
+        int maxVotes = 0;
+
+        for (String candidate : votes) {
+            if (votesByCandidate.containsKey(candidate)) {
+                votesByCandidate.put(candidate, votesByCandidate.get(candidate) + 1);
+                if (votesByCandidate.get(candidate) > maxVotes) {
+                    maxVotes = votesByCandidate.get(candidate);
+                    winner = candidate;
+
+                    //System.out.println("current winner = " + winner + " with " + maxVotes + " votes.");
+                }
+            } else {
+                votesByCandidate.put(candidate, 1);
+            }
+            //System.out.println("votesByCandidate.get(candidate) = " + votesByCandidate.get(candidate));
+        }
+        //System.out.println(votesByCandidate);
+
+        return winner;
+    }
+```
+#### JavaScript Linter - Scans through javascript file to check if semi-colons are included at the end of lines, where appropriate
+```
+public static int linter(String path) {
+        int lineNumber = 1;
+        int totalErrors = 0;
+        Scanner gatesScanner;
+
+        //https://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner/15183769
+        try {
+            gatesScanner = new Scanner(new File(path));
+
+            while (gatesScanner.hasNextLine()) {
+                boolean isMissingSemiColon = false;
+                String line = gatesScanner.nextLine();
+
+                Scanner lineScanner = new Scanner(line);
+                while (lineScanner.hasNext()) {
+                    String token = lineScanner.next();
+
+                    //System.out.print(token + " ");
+                    if (token.contains("{")
+                            || token.contains("}")
+                            || token.contains("if")
+                            || token.contains("else")
+                            || token.contains(";")) {
+                        //System.out.println("Line " + lineNumber + " is fine.");
+                        isMissingSemiColon = false;
+                        continue;
+                    } else {
+                        isMissingSemiColon = true;
+                    }
+                }
+                if (isMissingSemiColon==true) {
+                    System.out.println("Line " + lineNumber + ": Missing semicolon.");
+                    totalErrors++;
+                }
+                //System.out.println("End of line " + lineNumber);
+                lineScanner.close();
+                lineNumber ++;
+            }
+            gatesScanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(totalErrors);
+        return totalErrors;
+    }
+```
