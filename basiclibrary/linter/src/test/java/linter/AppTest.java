@@ -4,6 +4,9 @@
 package linter;
 
 import org.junit.Test;
+
+import java.util.*;
+
 import static org.junit.Assert.*;
 
 public class AppTest {
@@ -14,14 +17,61 @@ public class AppTest {
 
     @Test
     public void analyzeWeatherData() {
-        App classUnderTest = new App();
+        App testAnalyzeWeatherData = new App();
 
         int[][] weeklyMonthTemperatures = {
-                {1, 64, 58, 65, 71, 57, 4},
-                {57, 45, 65, 70, 72, 65, 51},
-                {55, 120, 60, 100, 59, 57, 61}
+                {66, 64, 58, 65, 71, 57, 60},
+                {57, 65, 65, 70, 72, 65, 51},
+                {55, 54, 60, 53, 59, 57, 61},
+                {65, 56, 55, 52, 55, 62, 57}
         };
 
-        assertNotNull("app should return a string", classUnderTest.analyzeWeatherData(weeklyMonthTemperatures));
+        String expected = "High: 72\n" +
+                "Low: 51\n" +
+                "Never saw temperature: 63\n" +
+                "Never saw temperature: 67\n" +
+                "Never saw temperature: 68\n" +
+                "Never saw temperature: 69\n";
+
+        String actual = testAnalyzeWeatherData.analyzeWeatherData(weeklyMonthTemperatures);
+        assertEquals("app should return and string with the high, low, and temps not seen.", actual, expected);
+    }
+
+    @Test
+    public void tally() {
+        App voteTest = new App();
+        List<String> votes = new ArrayList<>();
+        votes.add("Bush");
+        votes.add("Bush");
+        votes.add("Bush");
+        votes.add("Shrub");
+        votes.add("Hedge");
+        votes.add("Shrub");
+        votes.add("Bush");
+        votes.add("Hedge");
+        votes.add("Bush");
+
+        assertEquals("Bush", voteTest.tally(votes));
+    }
+
+    @Test
+    public void linter() {
+        App linterTest = new App();
+
+        // Test gates.js
+        assertEquals(50, linterTest.linter("/Users/ellenconley/codefellows/401/java-fundamentals/basiclibrary/linter/src/main/resources/gates.js"));
+
+        // Test file with no errors
+        assertEquals(0, linterTest.linter("/Users/ellenconley/codefellows/401/java-fundamentals/basiclibrary/linter/src/test/resources/test1.js"));
+
+        // Test file with 1 error
+        assertEquals(1, linterTest.linter("/Users/ellenconley/codefellows/401/java-fundamentals/basiclibrary/linter/src/test/resources/test2.js"));
+
+        // Test empty file
+        assertEquals(0, linterTest.linter("/Users/ellenconley/codefellows/401/java-fundamentals/basiclibrary/linter/src/test/resources/empty.js"));
+
+        // Test file with few errors
+        assertEquals(2, linterTest.linter("/Users/ellenconley/codefellows/401/java-fundamentals/basiclibrary/linter/src/test/resources/test3.js"));
+
     }
 }

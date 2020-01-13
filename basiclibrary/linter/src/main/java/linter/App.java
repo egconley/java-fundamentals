@@ -3,7 +3,10 @@
  */
 package linter;
 
-import java.util.HashSet;
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class App {
 
@@ -11,6 +14,22 @@ public class App {
 
         System.out.println(new App().analyzeWeatherData(weeklyMonthTemperatures));
 
+        List<String> votes = new ArrayList<>();
+        votes.add("Bush");
+        votes.add("Bush");
+        votes.add("Bush");
+        votes.add("Shrub");
+        votes.add("Hedge");
+        votes.add("Shrub");
+        votes.add("Bush");
+        votes.add("Hedge");
+        votes.add("Bush");
+
+        String winner = tally(votes);
+        System.out.println(winner + " received the most votes!");
+
+        linter("/Users/ellenconley/codefellows/401/java-fundamentals/basiclibrary/linter/src/main/resources/gates.js");
+        //linter("../../resources/gates.js");
     }
 
     // Maps
@@ -67,4 +86,73 @@ public class App {
     // Tallying Election
     // Write a function called tally that accepts a List of Strings representing votes
     // and returns one string to show what got the most votes.
+    public static String tally(List<String> votes) {
+        String winner = "test";
+        HashMap<String, Integer> votesByCandidate = new HashMap<>();
+        int maxVotes = 0;
+
+        for (String candidate : votes) {
+            if (votesByCandidate.containsKey(candidate)) {
+                votesByCandidate.put(candidate, votesByCandidate.get(candidate) + 1);
+                if (votesByCandidate.get(candidate) > maxVotes) {
+                    maxVotes = votesByCandidate.get(candidate);
+                    winner = candidate;
+
+                    //System.out.println("current winner = " + winner + " with " + maxVotes + " votes.");
+                }
+            } else {
+                votesByCandidate.put(candidate, 1);
+            }
+            //System.out.println("votesByCandidate.get(candidate) = " + votesByCandidate.get(candidate));
+        }
+        //System.out.println(votesByCandidate);
+
+        return winner;
+    }
+
+    public static int linter(String path) {
+        int lineNumber = 1;
+        int totalErrors = 0;
+        Scanner gatesScanner;
+
+        //https://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner/15183769
+        try {
+            gatesScanner = new Scanner(new File(path));
+
+            while (gatesScanner.hasNextLine()) {
+                boolean isMissingSemiColon = false;
+                String line = gatesScanner.nextLine();
+
+                Scanner lineScanner = new Scanner(line);
+                while (lineScanner.hasNext()) {
+                    String token = lineScanner.next();
+
+                    //System.out.print(token + " ");
+                    if (token.contains("{")
+                            || token.contains("}")
+                            || token.contains("if")
+                            || token.contains("else")
+                            || token.contains(";")) {
+                        //System.out.println("Line " + lineNumber + " is fine.");
+                        isMissingSemiColon = false;
+                        continue;
+                    } else {
+                        isMissingSemiColon = true;
+                    }
+                }
+                if (isMissingSemiColon==true) {
+                    System.out.println("Line " + lineNumber + ": Missing semicolon.");
+                    totalErrors++;
+                }
+                //System.out.println("End of line " + lineNumber);
+                lineScanner.close();
+                lineNumber ++;
+            }
+            gatesScanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(totalErrors);
+        return totalErrors;
+    }
 }
