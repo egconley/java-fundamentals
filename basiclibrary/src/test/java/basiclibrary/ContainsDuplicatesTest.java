@@ -1,18 +1,26 @@
 package basiclibrary;
 
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class ContainsDuplicatesTest {
+    @Test
+    public void test_false_ContainsDuplicates() {
+        ContainsDuplicates test1 = new ContainsDuplicates();
 
-    // TBC
+        int[] testArray = new int[] {1,2,3,4};
 
-    //    public static void main (String[] args) {
-//        // execute containsDuplicates
-//        int[] testArray1 = new int[] {1,2,3,4};
-//        containsDuplicates(testArray1);
-//
-//        int[] testArray2 = new int[] {1,2,2,4};
-//        containsDuplicates(testArray2);
-//    }
+        assertFalse(ContainsDuplicates.containsDuplicates(testArray));
+    }
+
+    @Test
+    public void test_true_ContainsDuplicates() {
+        ContainsDuplicates test1 = new ContainsDuplicates();
+
+        int[] testArray = new int[] {1,2,3,4,4};
+
+        assertTrue(ContainsDuplicates.containsDuplicates(testArray));
+    }
 
 }

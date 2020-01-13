@@ -4,6 +4,17 @@ import java.util.Arrays;
 
 public class ArrayOfArrays {
 
+    public static void main (String[] args) {
+        // execute arrayAverage
+        int[][] testArray = new int[][]{
+                {1, 2, 3},
+                {34, 45, 67},
+                {-3, -5, 10}
+        };
+
+        lowestArrayAverage(testArray);
+    }
+
     public static int[] lowestArrayAverage(int[][] array) {
         double referenceAvg = 0;
         double innerArrayAvg = 0;
