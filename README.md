@@ -5,6 +5,7 @@ First several labs of Java 401
 - Lab 01 
 - Lab 02
 - Lab 03
+- Lab 06
 
 ## Lab01
 
@@ -335,3 +336,17 @@ public static int linter(String path) {
         return totalErrors;
     }
 ```
+## Lab06
+[link to code](https://github.com/egconley/java-fundamentals/tree/master/inheritance)
+
+### Files
+* inheritance
+   - src
+     - main/java/inheritance
+        - Library.java
+        - Restaurant.java
+        - Review.java
+     - test/java/inheritance
+        - LibraryTest.java
+        - RestaurantTest.java
+        - ReviewTest.java
