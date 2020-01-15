@@ -361,8 +361,13 @@ public static int linter(String path) {
      - main/java/inheritance
         - Library.java
         - Restaurant.java
+        - RestaurantReview.java
         - Review.java
+        - Reviewable.java
+        - Shop.java
+        - Theater.java
      - test/java/inheritance
         - LibraryTest.java
         - RestaurantTest.java
         - ReviewTest.java
+        - ShopTest.java
