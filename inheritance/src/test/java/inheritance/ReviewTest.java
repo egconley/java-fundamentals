@@ -13,7 +13,7 @@ public class ReviewTest {
 
     @Test
     public void testToString() {
-        Review test = new Review("Mandy Moore", "Bob's", "Bob's has good burgers.", 5);
+        Review test = new RestaurantReview("Mandy Moore", "Bob's", "Bob's has good burgers.", 5);
 
         String expected = "Mandy Moore gave Bob's 5 stars: Bob's has good burgers.";
         String actual = test.toString();
