@@ -4,21 +4,18 @@ import java.util.ArrayList;
 
 public class Review {
     String reviewAuthor;
-    String reviewedRestaurant;
+    String reviewedBusiness;
     String reviewBody;
     int reviewStarScore;
     ArrayList<Review> allReviews = new ArrayList<>();
 
-    public Review(String reviewAuthor, String reviewedRestaurant, String reviewBody, int reviewStarScore) {
+    public Review(String reviewAuthor, String reviewedBusiness, String reviewBody) {
         this.reviewAuthor = reviewAuthor;
-        this.reviewedRestaurant = reviewedRestaurant;
+        this.reviewedBusiness = reviewedBusiness;
         this.reviewBody = reviewBody;
-        this.reviewStarScore = reviewStarScore;
     }
 
     public String toString() {
-        return reviewAuthor + " gave " + reviewedRestaurant + " " + reviewStarScore + " stars: " + reviewBody;
+        return reviewAuthor + " gave " + reviewedBusiness + " " + reviewStarScore + " stars: " + reviewBody;
     }
-
-
 }

@@ -2,8 +2,7 @@ package inheritance;
 
 import java.util.ArrayList;
 
-public class Restaurant {
-    int[] starRange = new int[]{0,1,2,3,4,5};
+public class Restaurant implements Reviewable {
 
     String restaurantName;
     int starScore;
@@ -17,9 +16,15 @@ public class Restaurant {
         this.restaurantReviews = restaurantReviews;
     }
 
-    public void addReview(Review review) {
-        restaurantReviews.add(review);
+    public void addRestaurantReview(String reviewAuthor, String reviewedBusiness, String reviewBody, int reviewStarScore) {
+        RestaurantReview review = new RestaurantReview(reviewAuthor, reviewedBusiness, reviewBody, reviewStarScore);
+        //restaurantReviews.add(review);
+        addReview(review);
         updateStarScore();
+    }
+
+    public void addReview(Review review) {
+        this.restaurantReviews.add(review);
     }
 
     public void updateStarScore() {
